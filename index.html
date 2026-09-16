@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fragmented to Informed</title>
+<meta name="description" content="AIEH 2026 landing page for Park &amp; So — prototype, proceedings, and references for the paper on AI-supported classroom data systems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    color-scheme: light;
+    --bg: #F6FAF7;
+    --surface: #FFFFFF;
+    --surface-alt: #ECF4EE;
+    --ink: #12241D;
+    --ink-soft: #45564C;
+    --muted: #6D7D73;
+    --accent: #0B5A34;
+    --accent-strong: #08381F;
+    --accent-soft: #A6D9BE;
+    --accent-soft-ink: #0B3D22;
+    --line: rgba(18,36,29,0.09);
+    --shadow-sm: 0 1px 3px 0 rgba(15,32,23,0.06);
+    --shadow-md: 0 10px 30px -12px rgba(14,34,24,0.22);
+
+    --hero-bg-1: #10241D;
+    --hero-bg-2: #163A28;
+    --hero-ink: #F3F8F4;
+    --hero-ink-soft: #C4D8CB;
+    --hero-line: rgba(243,248,244,0.14);
+    --hero-accent: #A6D9BE;
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      color-scheme: dark;
+      --bg: #0E1913;
+      --surface: #15241C;
+      --surface-alt: #1A2C22;
+      --ink: #EAF2EC;
+      --ink-soft: #B9CBC0;
+      --muted: #8AA090;
+      --accent: #7FE0A9;
+      --accent-strong: #A6ECC5;
+      --accent-soft: #1F3B2C;
+      --accent-soft-ink: #9BE6BD;
+      --line: rgba(234,242,236,0.10);
+      --shadow-sm: 0 1px 3px 0 rgba(0,0,0,0.3);
+      --shadow-md: 0 14px 34px -14px rgba(0,0,0,0.55);
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --bg: #0E1913;
+    --surface: #15241C;
+    --surface-alt: #1A2C22;
+    --ink: #EAF2EC;
+    --ink-soft: #B9CBC0;
+    --muted: #8AA090;
+    --accent: #7FE0A9;
+    --accent-strong: #A6ECC5;
+    --accent-soft: #1F3B2C;
+    --accent-soft-ink: #9BE6BD;
+    --line: rgba(234,242,236,0.10);
+    --shadow-sm: 0 1px 3px 0 rgba(0,0,0,0.3);
+    --shadow-md: 0 14px 34px -14px rgba(0,0,0,0.55);
+  }
+
+  *{ box-sizing: border-box; }
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+    font-variant-numeric: tabular-nums;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,h2,h3{ font-family: 'Newsreader', 'Pretendard', Georgia, serif; text-wrap: balance; margin: 0; }
+  p{ margin: 0; }
+  a{ color: inherit; }
+  ::selection{ background: var(--accent-soft); color: var(--accent-soft-ink); }
+
+  .wrap{ max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    background:
+      radial-gradient(120% 90% at 85% -10%, rgba(166,217,190,0.16), transparent 55%),
+      linear-gradient(165deg, var(--hero-bg-1), var(--hero-bg-2));
+    color: var(--hero-ink);
+    padding: 48px 0 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .leaf-field{ position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+  .leaf-field svg{ position:absolute; color:#A6D9BE; animation: drift 16s ease-in-out infinite; }
+  @keyframes drift{
+    0%,100%{ transform: translate(0,0) rotate(0deg); }
+    50%{ transform: translate(10px,-16px) rotate(10deg); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .leaf-field svg{ animation: none; }
+  }
+
+  .eyebrow-row{ display:flex; flex-direction:column; gap:3px; }
+
+  .eyebrow{
+    display:inline-flex; align-items:baseline; gap:9px;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--hero-accent);
+  }
+  .eyebrow .year{
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+    color: var(--hero-ink-soft);
+    padding-left: 9px;
+    border-left: 1px solid var(--hero-line);
+    text-transform: none;
+  }
+
+  .conference-name{
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-size: 11.5px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+    color: var(--hero-ink-soft);
+    max-width: 480px;
+    opacity: 0.7;
+  }
+
+  .hero h1{
+    margin-top: 26px;
+    font-weight: 500;
+    font-size: clamp(30px, 5.4vw, 50px);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+  }
+  .hero h1 em{ font-style: normal; color: var(--hero-accent); }
+
+  .hero .subtitle{
+    margin-top: 18px;
+    max-width: 620px;
+    font-size: clamp(14.5px, 2vw, 16.5px);
+    line-height: 1.65;
+    color: var(--hero-ink-soft);
+  }
+
+  .authors{
+    margin-top: 34px;
+    padding-top: 26px;
+    border-top: 1px solid var(--hero-line);
+    display: flex; flex-wrap: wrap; gap: 24px 40px;
+  }
+  .author-name{ font-size: 15.5px; font-weight: 600; letter-spacing: 0.01em; }
+  .author-aff{ margin-top: 3px; font-size: 13px; color: var(--hero-ink-soft); line-height: 1.45; }
+  .author-aff a{ text-decoration: none; color: var(--hero-accent); border-bottom: 1px solid rgba(166,217,190,0.35); }
+  .author-aff a:hover{ border-bottom-color: var(--hero-accent); }
+
+  /* ---------- Resource section ---------- */
+  .resources{ padding: 60px 0 20px; }
+  .section-head{ display:flex; align-items:flex-end; justify-content:space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 30px; }
+  .section-head h2{ font-weight: 500; font-size: clamp(21px, 3vw, 26px); }
+  .section-head p{ font-size: 13.5px; color: var(--muted); max-width: 340px; }
+
+  .grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+  @media (max-width: 620px){ .grid{ grid-template-columns: 1fr; } }
+
+  /* ---------- Featured (prototype) card ---------- */
+  .featured-card{
+    display: block;
+    background: var(--surface);
+    border-radius: 24px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--line);
+    text-decoration: none;
+    color: var(--ink);
+    overflow: hidden;
+    margin-bottom: 18px;
+    transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s cubic-bezier(.2,.8,.2,1), border-color .35s;
+    opacity: 1; transform: translateY(0);
+  }
+  .featured-card.reveal-pending{ opacity: 0; transform: translateY(14px); }
+  @media (prefers-reduced-motion: reduce){
+    .featured-card.reveal-pending{ opacity: 1; transform: none; }
+    .featured-card{ transition: none; }
+  }
+  .featured-card:hover{ transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: transparent; }
+  .featured-media{
+    background: var(--surface-alt);
+    border-bottom: 1px solid var(--line);
+    line-height: 0;
+    padding: 16px 16px 0;
+  }
+  .featured-media img{
+    display: block; width: 100%;
+    max-height: 220px; object-fit: cover; object-position: top;
+    border-radius: 12px 12px 0 0;
+  }
+  .featured-body{ padding: 20px 24px 22px; display: flex; flex-direction: column; gap: 10px; }
+  .featured-top{ display:flex; align-items:center; justify-content:space-between; gap: 12px; }
+  .featured-body h3{ font-size: 17.5px; font-weight: 600; font-family: 'Inter', sans-serif; letter-spacing: -0.005em; }
+  .featured-body .desc{ font-size: 13.5px; line-height: 1.55; color: var(--muted); max-width: 560px; }
+
+  .card{
+    background: var(--surface);
+    border-radius: 20px;
+    padding: 26px 26px 24px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 16px;
+    text-decoration: none;
+    color: var(--ink);
+    position: relative;
+    transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s cubic-bezier(.2,.8,.2,1), border-color .35s;
+    opacity: 1; transform: translateY(0);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .card.reveal-pending{ opacity: 0; transform: translateY(14px); }
+  @media (prefers-reduced-motion: reduce){
+    .card.reveal-pending{ opacity: 1; transform: none; }
+    .card{ transition: none; }
+  }
+  .card:hover{ transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: transparent; }
+  .card:active{
+    transform: translateY(-1px) scale(0.98);
+    box-shadow: var(--shadow-sm);
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+
+  .card-top{ display:flex; align-items:flex-start; justify-content:space-between; gap: 12px; }
+  .icon-badge{
+    width: 42px; height: 42px; border-radius: 12px;
+    background: var(--surface-alt);
+    display:flex; align-items:center; justify-content:center;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+  .icon-badge svg{ width: 21px; height: 21px; }
+
+  .leaf-cue{
+    width: 18px; height: 18px; color: var(--accent-soft-ink); opacity: 0;
+    transform: rotate(-12deg) scale(0.7);
+    transition: opacity .3s ease, transform .45s cubic-bezier(.2,.8,.2,1);
+  }
+  .card:hover .leaf-cue, .featured-card:hover .leaf-cue{ opacity: 1; transform: rotate(6deg) scale(1); }
+
+  .card h3{ font-size: 17.5px; font-weight: 600; font-family: 'Inter', sans-serif; letter-spacing: -0.005em; }
+  .card .desc{ font-size: 13.5px; line-height: 1.55; color: var(--muted); flex: 1; }
+
+  .card .cta, .featured-card .cta{
+    display:flex; align-items:center; gap: 7px;
+    font-size: 13px; font-weight: 600;
+    color: var(--accent);
+    margin-top: 2px;
+  }
+  .card .cta svg, .featured-card .cta svg{ width: 14px; height: 14px; transition: transform .3s cubic-bezier(.2,.8,.2,1); }
+  .card:hover .cta svg, .featured-card:hover .cta svg{ transform: translateX(3px); }
+
+  .card.is-pending, .featured-card.is-pending{ cursor: default; }
+  .card.is-pending .cta, .featured-card.is-pending .cta{ color: var(--muted); }
+  .card.is-pending:hover, .card.is-pending:active,
+  .featured-card.is-pending:hover, .featured-card.is-pending:active{ transform: none; box-shadow: var(--shadow-sm); border-color: var(--line); }
+  .card.is-pending:hover .leaf-cue, .featured-card.is-pending:hover .leaf-cue{ opacity: 0; transform: rotate(-12deg) scale(0.7); }
+  .status-chip{
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 999px;
+    background: var(--surface-alt); color: var(--muted);
+  }
+
+  /* ---------- Footer ---------- */
+  footer{ margin-top: 56px; padding: 30px 0 44px; border-top: 1px solid var(--line); }
+  .foot-row{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap: 12px; }
+  .foot-brand{ display:flex; align-items:center; gap: 9px; font-size: 13px; color: var(--muted); }
+  .foot-brand svg{ width: 15px; height: 15px; color: var(--accent); }
+  .foot-meta{ font-size: 12.5px; color: var(--muted); }
+
+  @media (max-width: 640px){
+    .hero{ padding: 40px 0 32px; }
+    .resources{ padding: 44px 0 12px; }
+  }
+</style>
+</head>
+<body>
+
+
+<div class="hero">
+  <div class="leaf-field" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="26" height="26" style="left:8%; top:18%; opacity:.28; animation-duration:14s; animation-delay:-2s;"><path d="M12 22c-4-2-7-6-7-11a7 7 0 0 1 14 0c0 5-3 9-7 11Z" fill="currentColor"/></svg>
+    <svg viewBox="0 0 24 24" width="18" height="18" style="left:22%; top:62%; opacity:.22; animation-duration:19s; animation-delay:-6s;"><path d="M12 22c-4-2-7-6-7-11a7 7 0 0 1 14 0c0 5-3 9-7 11Z" fill="currentColor"/></svg>
+    <svg viewBox="0 0 24 24" width="32" height="32" style="left:78%; top:12%; opacity:.24; animation-duration:17s; animation-delay:-9s;"><path d="M12 22c-4-2-7-6-7-11a7 7 0 0 1 14 0c0 5-3 9-7 11Z" fill="currentColor"/></svg>
+    <svg viewBox="0 0 24 24" width="20" height="20" style="left:88%; top:58%; opacity:.30; animation-duration:15s; animation-delay:-4s;"><path d="M12 22c-4-2-7-6-7-11a7 7 0 0 1 14 0c0 5-3 9-7 11Z" fill="currentColor"/></svg>
+    <svg viewBox="0 0 24 24" width="16" height="16" style="left:50%; top:80%; opacity:.20; animation-duration:20s; animation-delay:-11s;"><path d="M12 22c-4-2-7-6-7-11a7 7 0 0 1 14 0c0 5-3 9-7 11Z" fill="currentColor"/></svg>
+    <svg viewBox="0 0 24 24" width="24" height="24" style="left:62%; top:30%; opacity:.18; animation-duration:22s; animation-delay:-7s;"><path d="M12 22c-4-2-7-6-7-11a7 7 0 0 1 14 0c0 5-3 9-7 11Z" fill="currentColor"/></svg>
+  </div>
+  <div class="wrap">
+    <div class="eyebrow-row">
+      <span class="eyebrow">AIEH<span class="year">2026</span></span>
+      <span class="conference-name">AI, Future Educational Scenarios and Transformations, and Global Harwell</span>
+    </div>
+    <h1>From Fragmented Records<br>to <em>Informed Decisions</em></h1>
+    <p class="subtitle">An AI-Supported System for Teachers' Use of Unstructured Classroom Data</p>
+
+    <div class="authors">
+      <div>
+        <div class="author-name">Sae-Yeon Park</div>
+        <div class="author-aff">Dogok Elementary School, Seoul, Republic of Korea<br><a href="mailto:saeyeon058@gmail.com">saeyeon058@gmail.com</a></div>
+      </div>
+      <div>
+        <div class="author-name">Hyo-Jeong So</div>
+        <div class="author-aff">Ewha Womans University, Seoul, Republic of Korea<br><a href="mailto:hyojeongso@ewha.ac.kr">hyojeongso@ewha.ac.kr</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="resources">
+    <div class="section-head">
+      <h2>Explore the session</h2>
+    </div>
+
+    <div id="featuredSlot"></div>
+    <div class="grid" id="cardGrid"></div>
+  </div>
+
+  <footer>
+    <div class="foot-row">
+      <div class="foot-brand">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c-4-2-7-6-7-11a7 7 0 0 1 14 0c0 5-3 9-7 11Z"/><path d="M12 15V7"/></svg>
+        <span>Park &amp; So · AIEH 2026</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var FEATURED = {
+    prototype: {
+      url: "https://insighted-ai.onrender.com/",
+      label: "Prototype System",
+      image: "assets/prototype-screenshot.png",
+      desc: "Try the working system behind the paper — InsightED AI, a decision support dashboard that turns unstructured classroom records (notes, surveys, observations) into actionable guidance for teachers."
+    }
+  };
+
+  var LINKS = {
+    proceedings: { url: "https://drive.google.com/file/d/1LIKUliPdXbxyjQvbYJCMC-GcTSyQgu8S/view?usp=sharing", label: "Final Proceedings" },
+    references:  { url: "https://docs.google.com/document/d/1LgxHg2jjawqpEJrXkcXxZrl5L8jdU70xH1Q14I1gfwY/edit?usp=sharing", label: "References" }
+  };
+
+  var ICONS = {
+    prototype: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg>',
+    proceedings: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h8l4 4v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M15 3v4h4M9 13h6M9 17h6M9 9h2"/></svg>',
+    references: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/><path d="M9 7h7M9 11h7"/></svg>'
+  };
+
+  var DESCS = {
+    proceedings: "The final, camera-ready paper as published in the conference proceedings.",
+    references: "Full reference list and supporting readings cited in the study."
+  };
+
+  var LEAF = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c-4-2-7-6-7-11a7 7 0 0 1 14 0c0 5-3 9-7 11Z"/></svg>';
+  var ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+
+  var featuredSlot = document.getElementById('featuredSlot');
+  var fItem = FEATURED.prototype;
+  var fPending = !fItem.url;
+  var fEl = document.createElement(fPending ? 'div' : 'a');
+  if (!fPending){ fEl.href = fItem.url; fEl.target = '_blank'; fEl.rel = 'noopener noreferrer'; }
+  fEl.className = 'featured-card reveal-pending' + (fPending ? ' is-pending' : '');
+  fEl.innerHTML =
+    (fItem.image ? '<div class="featured-media"><img src="' + fItem.image + '" alt="' + fItem.label + ' screenshot" loading="lazy"></div>' : '') +
+    '<div class="featured-body">' +
+      '<div class="featured-top">' +
+        '<div class="card-top" style="flex:1;">' +
+          '<div class="icon-badge">' + ICONS.prototype + '</div>' +
+          (fPending ? '<span class="status-chip">Coming soon</span>' : '<span class="leaf-cue">' + LEAF + '</span>') +
+        '</div>' +
+      '</div>' +
+      '<h3>' + fItem.label + '</h3>' +
+      '<p class="desc">' + fItem.desc + '</p>' +
+      '<span class="cta">' + (fPending ? 'Link added after the talk' : 'Open') + (fPending ? '' : ARROW) + '</span>' +
+    '</div>';
+  featuredSlot.appendChild(fEl);
+
+  var grid = document.getElementById('cardGrid');
+  var frag = document.createDocumentFragment();
+
+  Object.keys(LINKS).forEach(function(key){
+    var item = LINKS[key];
+    var pending = !item.url;
+    var el = document.createElement(pending ? 'div' : 'a');
+    if (!pending){ el.href = item.url; el.target = '_blank'; el.rel = 'noopener noreferrer'; }
+    el.className = 'card reveal-pending' + (pending ? ' is-pending' : '');
+
+    el.innerHTML =
+      '<div class="card-top">' +
+        '<div class="icon-badge">' + ICONS[key] + '</div>' +
+        (pending ? '<span class="status-chip">Coming soon</span>' : '<span class="leaf-cue">' + LEAF + '</span>') +
+      '</div>' +
+      '<h3>' + item.label + '</h3>' +
+      '<p class="desc">' + DESCS[key] + '</p>' +
+      '<span class="cta">' + (pending ? 'Link added after the talk' : 'Open') + (pending ? '' : ARROW) + '</span>';
+
+    frag.appendChild(el);
+  });
+  grid.appendChild(frag);
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cards = document.querySelectorAll('.card, .featured-card');
+
+  if (reduceMotion){
+    cards.forEach(function(c){ c.classList.remove('reveal-pending'); });
+  } else {
+    // Guaranteed entrance on load, staggered — cards sit above the fold, so a
+    // scroll-triggered observer alone would rarely get the chance to fire.
+    requestAnimationFrame(function(){
+      cards.forEach(function(c, i){
+        setTimeout(function(){ c.classList.remove('reveal-pending'); }, 120 + i * 90);
+      });
+    });
+
+    // Cards that enter later (resize, small viewports) still reveal on scroll.
+    if ('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if (entry.isIntersecting){
+            entry.target.classList.remove('reveal-pending');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      cards.forEach(function(c){ io.observe(c); });
+    }
+  }
+})();
+</script>
+
+</body>
+</html>
